@@ -1,0 +1,32 @@
+
+<IfModule mod_rewrite.c>
+RewriteEngine on
+
+# memblock akses directory
+Options -Indexes
+
+# menonaktifkan pencarian file htaccess
+<Files ~"^.*\.([Hh][Tt][Aa])">
+    order allow,deny
+    deny from all
+    satisfy all
+</Files>
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php
+
+RewriteRule ^home?$ index.php
+
+RewriteRule ^semua-pengumuman?$ WEB/more-pengumuman.php
+
+RewriteRule ^baca-pengumuman/([a-zA-Z0-9-_()/]+)$ WEB/baca-pengumuman.php?berkas=$1 [L]
+
+RewriteRule ^semua-kegiatan?$ WEB/more-kegiatan.php
+
+RewriteRule ^baca-kegiatan/([a-zA-Z0-9-_()/]+)$ WEB/baca-kegiatan.php?berkas=$1 [L]
+
+RewriteRule ^semua-berita?$ WEB/berita-roll.php
+
+RewriteRule ^baca-berita/([a-zA-Z0-9-_()/]+)$ WEB/berita-detail.php?ModeRead=$1 [L]
+</IfModule>
